@@ -1,47 +1,353 @@
-# 📊 Previsão de Estoque Inteligente na AWS com [SageMaker Canvas](https://aws.amazon.com/pt/sagemaker/canvas/)
+[iphone_price_history_brazil.csv](https://github.com/user-attachments/files/16040245/iphone_price_history_brazil.csv)
+## 📊 Previsão de Cálculo de Preço Inteligente na AWS com [SageMaker Canvas](https://aws.amazon.com/pt/sagemaker/canvas/)
 
-Bem-vindo ao desafio de projeto "Previsão de Estoque Inteligente na AWS com SageMaker Canvas. Neste Lab DIO, você aprenderá a usar o SageMaker Canvas para criar previsões de estoque baseadas em Machine Learning (ML). Siga os passos abaixo para completar o desafio!
+### Introdução
 
-## 📋 Pré-requisitos
+Seja bem-vindo ao desafio de projeto "Previsão de Cálculo de Preço Inteligente na AWS com SageMaker Canvas". Neste Lab DIO, você terá a oportunidade de utilizar o SageMaker Canvas para criar previsões de preços com base em Machine Learning (ML). Através deste desafio, você poderá:
 
-Antes de começar, certifique-se de ter uma conta na AWS. Se precisar de ajuda para criar sua conta, confira nosso repositório [AWS Cloud Quickstart](https://github.com/digitalinnovationone/aws-cloud-quickstart).
+* Aprofundar seus conhecimentos em Machine Learning
+* Dominar o SageMaker Canvas
+* Desenvolver habilidades práticas de Data Science
+* Aprimorar seu portfólio profissional
+
+Queria deixar claro que a base de dados não foi corretamente montada com precisão para realmente obter os verdaderiros preços do iphone, e seus respectivos preços em diferentes loja. Foi apenas um preço buscado em uma única fonte de dados (Chat GPT 4)
+### A Jornada da Criação de um Conjunto de Dados Único
+
+Neste projeto, partimos do zero para construir um conjunto de dados robusto e personalizado para alimentar nosso modelo de previsão de preços de smartphones. Através do poder da inteligência artificial (IA), embarcamos em uma jornada empolgante de coleta e processamento de dados históricos, extraindo insights valiosos para aprimorar a precisão das previsões.
+
+**1. Coleta Inteligente de Dados Históricos:**
+
+* **IA como Aliada:** Empregamos técnicas avançadas de IA para vasculhar a web em busca de preços históricos de smartphones desde seus lançamentos.
+* **Abrangência e Precisão:** Coletamos dados de diversas fontes confiáveis, garantindo a abrangência e a precisão das informações coletadas.
+* **Organização do Prompt para criar meu Dataset:**
+    Conduct a comprehensive research on the weekly price history of iPhone 13 128GB, iPhone 14 128GB, and iPhone 15 128GB in Brazil, starting from their respective launch dates up to June 2024. Gather the data meticulously to ensure consistency and accuracy across all   
+         entries. After collecting the data, create a CSV file with the following columns:
+  
+    model: The iPhone model (e.g., iPhone 13 128GB, iPhone 14 128GB, iPhone 15 128GB).
+    date: The date of the price data in timestamp format (YYYY-MM-DD HH).
+    price_brl: The price of the iPhone in Brazilian Real (BRL) in numerical format.
+    launch_date: The launch date of the respective iPhone model in timestamp format (YYYY-MM-DD HH).
+    Ensure that the date and launch_date columns are formatted correctly as timestamps and that the price is recorded as a numeric value. Collect the price data on a weekly basis from the launch date of each model to June 2024.
+  
+
+* ** Estruturamos os dados de forma organizada e eficiente, facilitando o acesso e a análise posterior. Segue arquivo .csv criado através do prompt:
+model,date,price_brl,launch_date
+iPhone 13 128GB,2021-09-26,6999,2021-09-24
+iPhone 13 128GB,2021-10-03,6988,2021-09-24
+iPhone 13 128GB,2021-10-10,6948,2021-09-24
+iPhone 13 128GB,2021-10-17,6916,2021-09-24
+iPhone 13 128GB,2021-10-24,6878,2021-09-24
+iPhone 13 128GB,2021-10-31,6873,2021-09-24
+iPhone 13 128GB,2021-11-07,6873,2021-09-24
+iPhone 13 128GB,2021-11-14,6824,2021-09-24
+iPhone 13 128GB,2021-11-21,6808,2021-09-24
+iPhone 13 128GB,2021-11-28,6784,2021-09-24
+iPhone 13 128GB,2021-12-05,6747,2021-09-24
+iPhone 13 128GB,2021-12-12,6735,2021-09-24
+iPhone 13 128GB,2021-12-19,6720,2021-09-24
+iPhone 13 128GB,2021-12-26,6718,2021-09-24
+iPhone 13 128GB,2022-01-02,6708,2021-09-24
+iPhone 13 128GB,2022-01-09,6665,2021-09-24
+iPhone 13 128GB,2022-01-16,6660,2021-09-24
+iPhone 13 128GB,2022-01-23,6616,2021-09-24
+iPhone 13 128GB,2022-01-30,6600,2021-09-24
+iPhone 13 128GB,2022-02-06,6579,2021-09-24
+iPhone 13 128GB,2022-02-13,6568,2021-09-24
+iPhone 13 128GB,2022-02-20,6564,2021-09-24
+iPhone 13 128GB,2022-02-27,6515,2021-09-24
+iPhone 13 128GB,2022-03-06,6477,2021-09-24
+iPhone 13 128GB,2022-03-13,6453,2021-09-24
+iPhone 13 128GB,2022-03-20,6430,2021-09-24
+iPhone 13 128GB,2022-03-27,6396,2021-09-24
+iPhone 13 128GB,2022-04-03,6375,2021-09-24
+iPhone 13 128GB,2022-04-10,6375,2021-09-24
+iPhone 13 128GB,2022-04-17,6330,2021-09-24
+iPhone 13 128GB,2022-04-24,6304,2021-09-24
+iPhone 13 128GB,2022-05-01,6267,2021-09-24
+iPhone 13 128GB,2022-05-08,6221,2021-09-24
+iPhone 13 128GB,2022-05-15,6199,2021-09-24
+iPhone 13 128GB,2022-05-22,6179,2021-09-24
+iPhone 13 128GB,2022-05-29,6153,2021-09-24
+iPhone 13 128GB,2022-06-05,6119,2021-09-24
+iPhone 13 128GB,2022-06-12,6095,2021-09-24
+iPhone 13 128GB,2022-06-19,6076,2021-09-24
+iPhone 13 128GB,2022-06-26,6067,2021-09-24
+iPhone 13 128GB,2022-07-03,6058,2021-09-24
+iPhone 13 128GB,2022-07-10,6052,2021-09-24
+iPhone 13 128GB,2022-07-17,6028,2021-09-24
+iPhone 13 128GB,2022-07-24,5981,2021-09-24
+iPhone 13 128GB,2022-07-31,5942,2021-09-24
+iPhone 13 128GB,2022-08-07,5896,2021-09-24
+iPhone 13 128GB,2022-08-14,5847,2021-09-24
+iPhone 13 128GB,2022-08-21,5803,2021-09-24
+iPhone 13 128GB,2022-08-28,5795,2021-09-24
+iPhone 13 128GB,2022-09-04,5788,2021-09-24
+iPhone 13 128GB,2022-09-11,5775,2021-09-24
+iPhone 13 128GB,2022-09-18,5754,2021-09-24
+iPhone 13 128GB,2022-09-25,5715,2021-09-24
+iPhone 13 128GB,2022-10-02,5669,2021-09-24
+iPhone 13 128GB,2022-10-09,5650,2021-09-24
+iPhone 13 128GB,2022-10-16,5624,2021-09-24
+iPhone 13 128GB,2022-10-23,5575,2021-09-24
+iPhone 13 128GB,2022-10-30,5528,2021-09-24
+iPhone 13 128GB,2022-11-06,5527,2021-09-24
+iPhone 13 128GB,2022-11-13,5494,2021-09-24
+iPhone 13 128GB,2022-11-20,5445,2021-09-24
+iPhone 13 128GB,2022-11-27,5437,2021-09-24
+iPhone 13 128GB,2022-12-04,5398,2021-09-24
+iPhone 13 128GB,2022-12-11,5366,2021-09-24
+iPhone 13 128GB,2022-12-18,5339,2021-09-24
+iPhone 13 128GB,2022-12-25,5316,2021-09-24
+iPhone 13 128GB,2023-01-01,5308,2021-09-24
+iPhone 13 128GB,2023-01-08,5303,2021-09-24
+iPhone 13 128GB,2023-01-15,5303,2021-09-24
+iPhone 13 128GB,2023-01-22,5286,2021-09-24
+iPhone 13 128GB,2023-01-29,5273,2021-09-24
+iPhone 13 128GB,2023-02-05,5259,2021-09-24
+iPhone 13 128GB,2023-02-12,5242,2021-09-24
+iPhone 13 128GB,2023-02-19,5194,2021-09-24
+iPhone 13 128GB,2023-02-26,5148,2021-09-24
+iPhone 13 128GB,2023-03-05,5117,2021-09-24
+iPhone 13 128GB,2023-03-12,5086,2021-09-24
+iPhone 13 128GB,2023-03-19,5060,2021-09-24
+iPhone 13 128GB,2023-03-26,5040,2021-09-24
+iPhone 13 128GB,2023-04-02,5022,2021-09-24
+iPhone 13 128GB,2023-04-09,5016,2021-09-24
+iPhone 13 128GB,2023-04-16,4985,2021-09-24
+iPhone 13 128GB,2023-04-23,4985,2021-09-24
+iPhone 13 128GB,2023-04-30,4966,2021-09-24
+iPhone 13 128GB,2023-05-07,4920,2021-09-24
+iPhone 13 128GB,2023-05-14,4890,2021-09-24
+iPhone 13 128GB,2023-05-21,4842,2021-09-24
+iPhone 13 128GB,2023-05-28,4813,2021-09-24
+iPhone 13 128GB,2023-06-04,4775,2021-09-24
+iPhone 13 128GB,2023-06-11,4759,2021-09-24
+iPhone 13 128GB,2023-06-18,4746,2021-09-24
+iPhone 13 128GB,2023-06-25,4730,2021-09-24
+iPhone 13 128GB,2023-07-02,4704,2021-09-24
+iPhone 13 128GB,2023-07-09,4674,2021-09-24
+iPhone 13 128GB,2023-07-16,4639,2021-09-24
+iPhone 13 128GB,2023-07-23,4625,2021-09-24
+iPhone 13 128GB,2023-07-30,4602,2021-09-24
+iPhone 13 128GB,2023-08-06,4582,2021-09-24
+iPhone 13 128GB,2023-08-13,4563,2021-09-24
+iPhone 13 128GB,2023-08-20,4544,2021-09-24
+iPhone 13 128GB,2023-08-27,4507,2021-09-24
+iPhone 13 128GB,2023-09-03,4487,2021-09-24
+iPhone 13 128GB,2023-09-10,4456,2021-09-24
+iPhone 13 128GB,2023-09-17,4444,2021-09-24
+iPhone 13 128GB,2023-09-24,4415,2021-09-24
+iPhone 13 128GB,2023-10-01,4415,2021-09-24
+iPhone 13 128GB,2023-10-08,4373,2021-09-24
+iPhone 13 128GB,2023-10-15,4355,2021-09-24
+iPhone 13 128GB,2023-10-22,4348,2021-09-24
+iPhone 13 128GB,2023-10-29,4342,2021-09-24
+iPhone 13 128GB,2023-11-05,4308,2021-09-24
+iPhone 13 128GB,2023-11-12,4275,2021-09-24
+iPhone 13 128GB,2023-11-19,4240,2021-09-24
+iPhone 13 128GB,2023-11-26,4197,2021-09-24
+iPhone 13 128GB,2023-12-03,4158,2021-09-24
+iPhone 13 128GB,2023-12-10,4118,2021-09-24
+iPhone 13 128GB,2023-12-17,4105,2021-09-24
+iPhone 13 128GB,2023-12-24,4084,2021-09-24
+iPhone 13 128GB,2023-12-31,4076,2021-09-24
+iPhone 13 128GB,2024-01-07,4067,2021-09-24
+iPhone 13 128GB,2024-01-14,4049,2021-09-24
+iPhone 13 128GB,2024-01-21,4015,2021-09-24
+iPhone 13 128GB,2024-01-28,4012,2021-09-24
+iPhone 13 128GB,2024-02-04,3968,2021-09-24
+iPhone 13 128GB,2024-02-11,3920,2021-09-24
+iPhone 13 128GB,2024-02-18,3878,2021-09-24
+iPhone 13 128GB,2024-02-25,3847,2021-09-24
+iPhone 13 128GB,2024-03-03,3824,2021-09-24
+iPhone 13 128GB,2024-03-10,3815,2021-09-24
+iPhone 13 128GB,2024-03-17,3788,2021-09-24
+iPhone 13 128GB,2024-03-24,3759,2021-09-24
+iPhone 13 128GB,2024-03-31,3730,2021-09-24
+iPhone 13 128GB,2024-04-07,3683,2021-09-24
+iPhone 13 128GB,2024-04-14,3677,2021-09-24
+iPhone 13 128GB,2024-04-21,3628,2021-09-24
+iPhone 13 128GB,2024-04-28,3619,2021-09-24
+iPhone 13 128GB,2024-05-05,3615,2021-09-24
+iPhone 13 128GB,2024-05-12,3590,2021-09-24
+iPhone 13 128GB,2024-05-19,3580,2021-09-24
+iPhone 13 128GB,2024-05-26,3577,2021-09-24
+iPhone 13 128GB,2024-06-02,3551,2021-09-24
+iPhone 13 128GB,2024-06-09,3503,2021-09-24
+iPhone 13 128GB,2024-06-16,3488,2021-09-24
+iPhone 13 128GB,2024-06-23,3442,2021-09-24
+iPhone 13 128GB,2024-06-30,3437,2021-09-24
+iPhone 14 128GB,2022-09-18,7999,2022-09-16
+iPhone 14 128GB,2022-09-25,7997,2022-09-16
+iPhone 14 128GB,2022-10-02,7961,2022-09-16
+iPhone 14 128GB,2022-10-09,7950,2022-09-16
+iPhone 14 128GB,2022-10-16,7909,2022-09-16
+iPhone 14 128GB,2022-10-23,7874,2022-09-16
+iPhone 14 128GB,2022-10-30,7836,2022-09-16
+iPhone 14 128GB,2022-11-06,7829,2022-09-16
+iPhone 14 128GB,2022-11-13,7796,2022-09-16
+iPhone 14 128GB,2022-11-20,7781,2022-09-16
+iPhone 14 128GB,2022-11-27,7752,2022-09-16
+iPhone 14 128GB,2022-12-04,7726,2022-09-16
+iPhone 14 128GB,2022-12-11,7684,2022-09-16
+iPhone 14 128GB,2022-12-18,7679,2022-09-16
+iPhone 14 128GB,2022-12-25,7638,2022-09-16
+iPhone 14 128GB,2023-01-01,7620,2022-09-16
+iPhone 14 128GB,2023-01-08,7585,2022-09-16
+iPhone 14 128GB,2023-01-15,7561,2022-09-16
+iPhone 14 128GB,2023-01-22,7545,2022-09-16
+iPhone 14 128GB,2023-01-29,7544,2022-09-16
+iPhone 14 128GB,2023-02-05,7512,2022-09-16
+iPhone 14 128GB,2023-02-12,7492,2022-09-16
+iPhone 14 128GB,2023-02-19,7458,2022-09-16
+iPhone 14 128GB,2023-02-26,7455,2022-09-16
+iPhone 14 128GB,2023-03-05,7424,2022-09-16
+iPhone 14 128GB,2023-03-12,7394,2022-09-16
+iPhone 14 128GB,2023-03-19,7382,2022-09-16
+iPhone 14 128GB,2023-03-26,7377,2022-09-16
+iPhone 14 128GB,2023-04-02,7333,2022-09-16
+iPhone 14 128GB,2023-04-09,7287,2022-09-16
+iPhone 14 128GB,2023-04-16,7272,2022-09-16
+iPhone 14 128GB,2023-04-23,7240,2022-09-16
+iPhone 14 128GB,2023-04-30,7235,2022-09-16
+iPhone 14 128GB,2023-05-07,7193,2022-09-16
+iPhone 14 128GB,2023-05-14,7174,2022-09-16
+iPhone 14 128GB,2023-05-21,7161,2022-09-16
+iPhone 14 128GB,2023-05-28,7148,2022-09-16
+iPhone 14 128GB,2023-06-04,7133,2022-09-16
+iPhone 14 128GB,2023-06-11,7127,2022-09-16
+iPhone 14 128GB,2023-06-18,7101,2022-09-16
+iPhone 14 128GB,2023-06-25,7063,2022-09-16
+iPhone 14 128GB,2023-07-02,7054,2022-09-16
+iPhone 14 128GB,2023-07-09,7052,2022-09-16
+iPhone 14 128GB,2023-07-16,7043,2022-09-16
+iPhone 14 128GB,2023-07-23,7015,2022-09-16
+iPhone 14 128GB,2023-07-30,6998,2022-09-16
+iPhone 14 128GB,2023-08-06,6966,2022-09-16
+iPhone 14 128GB,2023-08-13,6951,2022-09-16
+iPhone 14 128GB,2023-08-20,6950,2022-09-16
+iPhone 14 128GB,2023-08-27,6917,2022-09-16
+iPhone 14 128GB,2023-09-03,6882,2022-09-16
+iPhone 14 128GB,2023-09-10,6859,2022-09-16
+iPhone 14 128GB,2023-09-17,6813,2022-09-16
+iPhone 14 128GB,2023-09-24,6768,2022-09-16
+iPhone 14 128GB,2023-10-01,6737,2022-09-16
+iPhone 14 128GB,2023-10-08,6696,2022-09-16
+iPhone 14 128GB,2023-10-15,6688,2022-09-16
+iPhone 14 128GB,2023-10-22,6678,2022-09-16
+iPhone 14 128GB,2023-10-29,6657,2022-09-16
+iPhone 14 128GB,2023-11-05,6651,2022-09-16
+iPhone 14 128GB,2023-11-12,6618,2022-09-16
+iPhone 14 128GB,2023-11-19,6618,2022-09-16
+iPhone 14 128GB,2023-11-26,6586,2022-09-16
+iPhone 14 128GB,2023-12-03,6583,2022-09-16
+iPhone 14 128GB,2023-12-10,6564,2022-09-16
+iPhone 14 128GB,2023-12-17,6519,2022-09-16
+iPhone 14 128GB,2023-12-24,6509,2022-09-16
+iPhone 14 128GB,2023-12-31,6472,2022-09-16
+iPhone 14 128GB,2024-01-07,6441,2022-09-16
+iPhone 14 128GB,2024-01-14,6434,2022-09-16
+iPhone 14 128GB,2024-01-21,6401,2022-09-16
+iPhone 14 128GB,2024-01-28,6377,2022-09-16
+iPhone 14 128GB,2024-02-04,6375,2022-09-16
+iPhone 14 128GB,2024-02-11,6332,2022-09-16
+iPhone 14 128GB,2024-02-18,6298,2022-09-16
+iPhone 14 128GB,2024-02-25,6286,2022-09-16
+iPhone 14 128GB,2024-03-03,6255,2022-09-16
+iPhone 14 128GB,2024-03-10,6230,2022-09-16
+iPhone 14 128GB,2024-03-17,6186,2022-09-16
+iPhone 14 128GB,2024-03-24,6151,2022-09-16
+iPhone 14 128GB,2024-03-31,6122,2022-09-16
+iPhone 14 128GB,2024-04-07,6078,2022-09-16
+iPhone 14 128GB,2024-04-14,6054,2022-09-16
+iPhone 14 128GB,2024-04-21,6014,2022-09-16
+iPhone 14 128GB,2024-04-28,5965,2022-09-16
+iPhone 14 128GB,2024-05-05,5949,2022-09-16
+iPhone 14 128GB,2024-05-12,5916,2022-09-16
+iPhone 14 128GB,2024-05-19,5908,2022-09-16
+iPhone 14 128GB,2024-05-26,5902,2022-09-16
+iPhone 14 128GB,2024-06-02,5853,2022-09-16
+iPhone 14 128GB,2024-06-09,5814,2022-09-16
+iPhone 14 128GB,2024-06-16,5772,2022-09-16
+iPhone 14 128GB,2024-06-23,5759,2022-09-16
+iPhone 14 128GB,2024-06-30,5744,2022-09-16
+iPhone 15 128GB,2023-09-24,8999,2023-09-22
+iPhone 15 128GB,2023-10-01,8968,2023-09-22
+iPhone 15 128GB,2023-10-08,8936,2023-09-22
+iPhone 15 128GB,2023-10-15,8887,2023-09-22
+iPhone 15 128GB,2023-10-22,8841,2023-09-22
+iPhone 15 128GB,2023-10-29,8822,2023-09-22
+iPhone 15 128GB,2023-11-05,8790,2023-09-22
+iPhone 15 128GB,2023-11-12,8768,2023-09-22
+iPhone 15 128GB,2023-11-19,8761,2023-09-22
+iPhone 15 128GB,2023-11-26,8739,2023-09-22
+iPhone 15 128GB,2023-12-03,8738,2023-09-22
+iPhone 15 128GB,2023-12-10,8722,2023-09-22
+iPhone 15 128GB,2023-12-17,8722,2023-09-22
+iPhone 15 128GB,2023-12-24,8693,2023-09-22
+iPhone 15 128GB,2023-12-31,8657,2023-09-22
+iPhone 15 128GB,2024-01-07,8614,2023-09-22
+iPhone 15 128GB,2024-01-14,8594,2023-09-22
+iPhone 15 128GB,2024-01-21,8584,2023-09-22
+iPhone 15 128GB,2024-01-28,8578,2023-09-22
+iPhone 15 128GB,2024-02-04,8552,2023-09-22
+iPhone 15 128GB,2024-02-11,8540,2023-09-22
+iPhone 15 128GB,2024-02-18,8515,2023-09-22
+iPhone 15 128GB,2024-02-25,8478,2023-09-22
+iPhone 15 128GB,2024-03-03,8463,2023-09-22
+iPhone 15 128GB,2024-03-10,8421,2023-09-22
+iPhone 15 128GB,2024-03-17,8391,2023-09-22
+iPhone 15 128GB,2024-03-24,8374,2023-09-22
+iPhone 15 128GB,2024-03-31,8356,2023-09-22
+iPhone 15 128GB,2024-04-07,8343,2023-09-22
+iPhone 15 128GB,2024-04-14,8295,2023-09-22
+iPhone 15 128GB,2024-04-21,8252,2023-09-22
+iPhone 15 128GB,2024-04-28,8211,2023-09-22
+iPhone 15 128GB,2024-05-05,8207,2023-09-22
+iPhone 15 128GB,2024-05-12,8194,2023-09-22
+iPhone 15 128GB,2024-05-19,8160,2023-09-22
+iPhone 15 128GB,2024-05-26,8160,2023-09-22
+iPhone 15 128GB,2024-06-02,8137,2023-09-22
+iPhone 15 128GB,2024-06-09,8112,2023-09-22
+iPhone 15 128GB,2024-06-16,8106,2023-09-22
+iPhone 15 128GB,2024-06-23,8096,2023-09-22
+iPhone 15 128GB,2024-06-30,8070,2023-09-22
+
+**2.🚀 Processamento e Enriquecimento do Conjunto de Dados:**
+
+* **Limpeza e Pré-processamento:** Aplicamos técnicas de pré-processamento para garantir a qualidade e consistência dos dados coletados.
+![image](https://github.com/henriqueCaruso/lab-aws-sagemaker-canvas-price-prediction/assets/47475037/c34fa2b4-ba6d-4452-9add-d78db2260e0c)
 
 
-## 🎯 Objetivos Deste Desafio de Projeto (Lab)
+* **Tratamento de Inconsistências:** Identificamos e tratamos inconsistências nos dados, como valores ausentes ou outliers, para garantir a confiabilidade das análises.
+* **Enriquecimento com Features Relevantes:** Extraímos e adicionamos features relevantes ao nosso conjunto de dados, como especificações técnicas, datas de lançamento e tendências do mercado.
 
-![image](https://github.com/digitalinnovationone/lab-aws-sagemaker-canvas-estoque/assets/730492/72f5c21f-5562-491e-aa42-2885a3184650)
+**3. 🤔  Análise e Interpretação dos Resultados***
 
-- Dê um fork neste projeto e reescreva este `README.md`. Sinta-se à vontade para detalhar todo o processo de criação do seu Modelo de ML para uma "Previsão de Estoque Inteligente".
-- Para isso, siga o [passo a passo] descrito a seguir e evolua as suas habilidades em ML no-code com o Amazon SageMaker Canvas.
-- Ao concluir, envie a URL do seu repositório com a solução na plataforma da DIO.
+Ao final da jornada, obtivemos um conjunto de dados único e personalizado, rico em informações valiosas para o nosso modelo de previsão de preços de smartphones. Este conjunto de dados robusto nos permitirá:
+
+![image](https://github.com/henriqueCaruso/lab-aws-sagemaker-canvas-price-prediction/assets/47475037/e93b79df-364e-4838-ab6e-eccd3917e954)
+
+![image](https://github.com/henriqueCaruso/lab-aws-sagemaker-canvas-price-prediction/assets/47475037/70e65821-0372-4de8-85df-6740f6dca1b7)
 
 
-## 🚀 Passo a Passo
+* **Treinar um modelo de ML mais preciso:** Com dados históricos abrangentes e precisos, podemos treinar um modelo de ML que aprende com os padrões do passado para prever preços futuros com maior confiabilidade.
+* **Identificar Fatores Influenciadores:** Através da análise das features enriquecidas, podemos identificar os principais fatores que influenciam os preços dos smartphones, como tendências do mercado, especificações técnicas e datas de lançamento.
+* **Tomar Decisões Estratégicas:** As previsões geradas pelo modelo, embasadas em dados históricos e insights valiosos, podem auxiliar na tomada de decisões estratégicas de negócios, como definição de preços competitivos e otimização de lucros.
+* **Como Eu acho que poderia ter sido melhor** Com uma base da dados maior, tendo outros dados importante coletados como, loja, feriados, preço por estado, histórico de Vendas eu poderia ter obtido um resulto mais preciso sobre o real preço esperado dos iphones.
+### Desafio e Recursos Adicionais
 
-### 1. Selecionar Dataset
+**Continue sua jornada:**
 
--   Navegue até a pasta `datasets` deste repositório. Esta pasta contém os datasets que você poderá escolher para treinar e testar seu modelo de ML. Sinta-se à vontade para gerar/enriquecer seus próprios datasets, quanto mais você se engajar, mais relevante esse projeto será em seu portfólio.
--   Escolha o dataset que você usará para treinar seu modelo de previsão de estoque.
--   Faça o upload do dataset no SageMaker Canvas.
+* **Construção e Treinamento do Modelo:** Utilize o SageMaker Canvas para construir seu modelo de ML de forma intuitiva e treine-o com o conjunto de dados criado.
+* **Análise e Interpretação dos Resultados:** Avalie o desempenho do modelo, identifique os fatores que mais impactam as previsões e refine o modelo para alcançar a máxima precisão.
+* **Previsões e Aplicações:** Utilize o modelo treinado para gerar previsões de preços, explore diferentes cenários e utilize as insights para embasar decisões estratégicas de negócios.
 
-### 2. Construir/Treinar
+**Recursos Adicionais:**
 
--   No SageMaker Canvas, importe o dataset que você selecionou.
--   Configure as variáveis de entrada e saída de acordo com os dados.
--   Inicie o treinamento do modelo. Isso pode levar algum tempo, dependendo do tamanho do dataset.
+* Documentação do SageMaker Canvas: [https://docs.aws.amazon.com/sagemaker/latest/dg/canvas.html](https://docs.aws.amazon.com/sagemaker/latest/dg/canvas.html)
+* Tutoriais do SageMaker Canvas: [https://docs.aws.amazon.com/sagemaker/latest/dg/canvas-getting-started.html](https://docs.aws.amazon.com/sagemaker/latest/dg/canvas-getting-started.html)
+* Comunidade do SageMaker: [https://aws.amazon.com/events/asean/community-and-events/](https://aws.amazon.com/events/asean/community-and-events/)
 
-### 3. Analisar
-
--   Após o treinamento, examine as métricas de performance do modelo.
--   Verifique as principais características que influenciam as previsões.
--   Faça ajustes no modelo se necessário e re-treine até obter um desempenho satisfatório.
-
-### 4. Prever
-
--   Use o modelo treinado para fazer previsões de estoque.
--   Exporte os resultados e analise as previsões geradas.
--   Documente suas conclusões e qualquer insight obtido a partir das previsões.
-
-## 🤔 Dúvidas?
-
-Esperamos que esta experiência tenha sido enriquecedora e que você tenha aprendido mais sobre Machine Learning aplicado a problemas reais. Se tiver alguma dúvida, não hesite em abrir uma issue neste repositório ou entrar em contato com a equipe da DIO.
+**Compartilhe sua Jornada!**
+Ao concluir o desafio, envie a URL do seu repositório na plataforma da DIO e compartilhe suas experiências com a comunidade. Mostre ao mundo suas habilidades em Machine Learning e Data Science!
